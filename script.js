@@ -48,13 +48,13 @@ const claimsHistory = (oldListOfClaims = [], action) => {
 };
 
 // Reducers - Accounting Department
-const accounting = (oldBagOfMoney = 100, action) => {
+const accounting = (bagOfMoney = 100, action) => {
    if (action.type === 'CREATE_CLAIM') {
       return bagOfMoney - action.payload.amountOfMoneyToCollect;
    } else if (action.type === "CREATE_POLICY") {
       return bagOfMoney + action.payload.amount;
    }
-   return bagOfMOney;
+   return bagOfMoney;
 };
 
 
@@ -67,3 +67,19 @@ const policies = (listOfPolicies = [], action) => {
    }
    return listOfPolicies;
 };
+
+const {
+   createStore,
+   combineReducers
+} = Redux;
+
+const ourDepartments = combineReducers({
+   accounting: accounting,
+   claimsHistory: claimsHistory,
+   policies: policies
+});
+
+
+const store = createStore(ourDepartments);
+
+store
